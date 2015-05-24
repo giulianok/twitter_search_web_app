@@ -2,10 +2,10 @@
   "name": "TwitterSearchBackend",
   "version": "1.0.0",
   "description": "Twitter Search Web app",
-  "main": "frontend/server.js",
+  "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "node frontend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "Ivica Batinic",
   "license": "MIT",

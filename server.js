@@ -13,10 +13,10 @@ var T = new Twit({
     access_token_secret: '5PTPJAuIH8vuR44i4TSopAqq4rQzg7u8Ycguvcy6T1RpZ'
 });
 
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '../frontend/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 // Sockets
@@ -75,7 +75,7 @@ io.on('connection', function(socket) {
 });
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var hostname = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 server.listen(port, ip);
 console.log('Server listening on port 3000');
