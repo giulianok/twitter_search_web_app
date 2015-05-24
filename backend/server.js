@@ -74,5 +74,8 @@ io.on('connection', function(socket) {
 
 });
 
-server.listen(3000);
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var hostname = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+
+server.listen(port, ip);
 console.log('Server listening on port 3000');
