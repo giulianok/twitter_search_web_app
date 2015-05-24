@@ -1,0 +1,18 @@
+<ts-header on-search="search"></ts-header>
+<div class="row">
+    <div class="col-md-8">
+        <div ng-repeat="twit in twitts track by $index">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>{{twit.user.name}}t</h3>
+                    <p>{{twit.text}}</p>
+                    <p>Retweet count: {{twit.retweet_count}}</p>
+                    <p>Favorite count: {{twit.favorite_count}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <sidebar></sidebar>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{
+  "author": "Tomasz Kuklis",
+  "name": "angular-collection",
+  "description": "Angular Collection - The Collection module for AngularJS",
+  "version": "0.5.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tomkuk/angular-collection.git"
+  },
+  "main": "./angular-collection.min.js",
+  "ignore": [
+    "test",
+    ".gitignore",
+    ".travis.yml",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": ">= 1.0.2"
+  },
+  "homepage": "https://github.com/tomkuk/angular-collection",
+  "_release": "0.5.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.5.1",
+    "commit": "e0a72d21b590945fe34bf88bb388ebb6e1dee408"
+  },
+  "_source": "git://github.com/tomkuk/angular-collection.git",
+  "_target": "~0.5.1",
+  "_originalSource": "angular-collection"
+}

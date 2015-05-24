@@ -1,0 +1,16 @@
+{
+  "name": "TwitterSearchBackend",
+  "version": "1.0.0",
+  "description": "Twitter Search Web app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ivica Batinic",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.12.4",
+    "socket.io": "^1.3.5",
+    "twit": "^1.1.20"
+  }
+}
