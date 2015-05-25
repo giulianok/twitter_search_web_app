@@ -1,25 +1,23 @@
 # Twitter search
 
-## Zadatak
-Koristeći Angular.js napraviti one page site koji simulira Twitter search. Unos keyworda se obavlja preko forme (imitirati Twitter search box). Suggestione nije potrebno ispisivati.  
-Potrebno je iskoristiti Twitter API za dohvat tweetova. Ispisati eventualne pogreške prilikom dohvata s APIja u popupu. Prikazati rezultate sa pripadnim metapodacima (autor i tekst tweeta s brojem retweetova i favoritesa).
+## Opis
+Angular.js one page site koji simulira Twitter search koristeći Twitter API za dohvat tweetova. Unos keyworda se obavlja preko forme (imitacija Twitter search boxa). Suggestione se ne ispisuju (nije implementirano). Eventualne pogreške prilikom dohvata s APIja se ispisuju u popupu. Rezultati sa se ispisuju s pripadnim metapodacima (autor i tekst tweeta s brojem retweetova i favoritesa).
 
-Opcionalno:
-- Napraviti paginaciju za searcheve koji za rezultat daju više od 20 tweetova
-- Pamćenje prethodnih searcheva u sidebaru
-- Highlight traženog keyworda u tekstu tweeta (boldati, drugom bojom ispisati ili nekako drugačije naznačiti traženi keyword unutar tweeta)
+## Korištene tehnologije:
+- MongoDB
+- ExpressJs
+- AngularJS
+- Node.js
+- Grunt
+- socket.io
 
-Svi dodatni eventualni featurei su dozvoljeni.
-
-Angular.js nije jedina dozvoljena tehnologija; potiče se kombiniranje različitih tehnologija (Node.js, socket.io, SQLite, Grunt...).
-
+## Potrebna dokumentacija
 Dokumentacija potrebnih API metoda se može pronaći na https://dev.twitter.com/rest/public.  
 Proces registracije aplikacije i dohvata tokena za API requestove obaviti na https://apps.twitter.com/.
 
-Ocjenjuje se:
-- Kvalitetna struktura datoteka i klasa
-- Jasnoća koda
-- Općeniti elementi ispravno napisanog kôda
-Ispravno korištenje MVC obrasca
-
-NE ocjenjuje se dizajn sučelja/prikaza.
+## TODO
+- [ ] paginacija za više od 20 rezultata
+- [x] pamćenje prethodnih searcheva u sidebaru
+- [ ] ispis pogrešaka u popupu
+- [ ] highlight traženog keyworda u tekstu tweeta
+- [ ] refactoring koda
