@@ -1,0 +1,27 @@
+<div>
+    <h2>Search stack:</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Keyword</th>
+            <th>IP</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="q in collection | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+            <td>{{$index + 1}}</td>
+            <td>{{q.query}}</td>
+            <td>{{q.ip}}</td>
+            <td>TODO!</td>
+        </tr>
+    </table>
+    <pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize" class="pagination-small" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination>
+    <nav>
+        <ul class="pager">
+            <li class="previous" ng-class="currentPage == 0 ? ' disabled' : '' "><a href="#" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1"><span aria-hidden="true">&larr;</span> Older</a></li>
+            <li class="next" ng-class="currentPage >= data.length/pageSize - 1 ? ' disabled' : '' "><a href="#" ng-click="currentPage=currentPage+1">Newer <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+        {{currentPage+1}}/{{numberOfPages()}}
+    </nav>
+</div>

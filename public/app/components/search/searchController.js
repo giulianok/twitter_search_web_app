@@ -9,6 +9,10 @@ app
         // Private Methods
         // **********************************************************
 
+        /**
+         *
+         * @param q
+         */
         function spawnSearch(q) {
             socket.emit('q', q);
             $scope['tweets_' + q] = [];
@@ -39,7 +43,7 @@ app
 
         function addTOSearchList(searchItem) {
             //TODO Error Check
-            $scope.searchlist.push(searchItem.data);
+            $scope.searchlist.unshift(searchItem.data);
         };
 
     }]);

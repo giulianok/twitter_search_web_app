@@ -16,7 +16,8 @@
         </div>
     </div>
     <div class="col-md-4">
-        <h2>Search stack:</h2>
-        <div ng-repeat="q in searchlist track by $index">{{q.query}} IP:{{q.ip}}</div>
+        <!--<h2>Search stack:</h2>
+        <div ng-repeat="q in searchlist track by $index">{{q.query}} IP:{{q.ip}}</div>-->
+        <b-search-stack collection="searchlist"></b-search-stack>
     </div>
 </div>
