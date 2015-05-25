@@ -1,18 +1,20 @@
 app
-.controller('HomeController', [ '$scope', 'SearchService', '$compile', function ($scope, SearchService, $compile) {
+.controller('HomeController', [ '$scope', 'socket', 'SearchService', '$compile', function ($scope, socket, SearchService, $compile) {
 
         $scope.search = function(q) {
             spawnSearch(q);
         };
+
+        SearchService.getSearches().then( updateSearchList );
 
         // **********************************************************
         // Private Methods
         // **********************************************************
 
         function spawnSearch(q) {
-            SearchService.emit('q', q);
+            socket.emit('q', q);
             $scope['tweets_' + q] = [];
-            SearchService.on('tweet_' + q, function(tweet) {
+            socket.on('tweet_' + q, function(tweet) {
                 console.log(q, tweet);
                 if ($scope['tweets_' + q].length == 10) {
                     $scope['tweets_' + q].shift();
@@ -23,11 +25,23 @@ app
 
                 //updateScope(q)
             });
+
+            SearchService.saveSearchQuery(q).then( addTOSearchList );
         }
 
         function updateScope(q) {
             $scope.tweets = $scope['tweets_' + q];
             $scope.$apply();
         }
+
+        function updateSearchList(searchList) {
+            //TODO Error Check
+            $scope.searchlist =  searchList;
+        };
+
+        function addTOSearchList(searchItem) {
+            //TODO Error Check
+            $scope.searchlist.push(searchItem.data);
+        };
 
     }]);

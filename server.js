@@ -2,9 +2,14 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var path = require('path');
+var bodyParser = require('body-parser');
 var io = require('socket.io')(server);
 var Twit = require('twit');
 var searches = {};
+var mongo = require('mongoskin');
+var db = mongo.db("mongodb://localhost:27017/twittersearch", {native_parser:true});
+
+var searches = require('./routes/searches');
 
 var T = new Twit({
     consumer_key: 'HsHtIE2NsH4ga4CPEQVp3wfxg',
@@ -18,6 +23,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+
+app.use('/searches', searches);
 
 // Sockets
 io.on('connection', function(socket) {

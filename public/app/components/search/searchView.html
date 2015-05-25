@@ -13,6 +13,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <sidebar></sidebar>
+        <h2>Search stack:</h2>
+        <div ng-repeat="q in searchlist track by $index">{{q.query}} IP:{{q.ip}}</div>
     </div>
 </div>
