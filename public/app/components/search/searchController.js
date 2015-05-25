@@ -1,9 +1,7 @@
 app
 .controller('HomeController', [ '$scope', 'socket', 'SearchService', '$compile', function ($scope, socket, SearchService, $compile) {
 
-        $scope.search = function(q) {
-            spawnSearch(q);
-        };
+        $scope.spawnSearch = spawnSearch;
 
         SearchService.getSearches().then( updateSearchList );
 

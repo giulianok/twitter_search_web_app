@@ -1,4 +1,7 @@
-<ts-header on-search="search"></ts-header>
+<div class="page-header">
+    <h1 class="text-center">Twitter Search</h1>
+    <b-search on-submit="spawnSearch"></b-search>
+</div>
 <div class="row">
     <div class="col-md-8">
         <div ng-repeat="twit in twitts track by $index">
