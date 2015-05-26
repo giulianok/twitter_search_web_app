@@ -83,6 +83,8 @@ app
         function renderTwitts(response){
             $scope.searchMetadata = response.search_metadata;
             $scope.twitts = response.statuses;
+
+            // TODO logic for the last page (disable Older Button)
         }
 
         /**
