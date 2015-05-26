@@ -34,11 +34,11 @@ app
             renderTwitts(response);
 
             //Check if there is more than one page
-            if(!hasOwnProperty($scope.searchMetadata, 'next_results')){
-                $scope.hideNav = true;
+            if(hasOwnProperty($scope.searchMetadata, 'next_results')){
+                $scope.hideNav = false;
             }
             else{
-                $scope.hideNav = false;
+                $scope.hideNav = true;
             }
 
             // reset pageing
@@ -75,7 +75,7 @@ app
         }
 
         /**
-         * Check ig given object has a property.
+         * Check if given object has a property.
          * @param obj
          * @param prop
          * @returns {boolean}
