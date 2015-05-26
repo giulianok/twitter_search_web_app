@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1 class="text-center">Twitter Search</h1>
+    <h1 class="text-center">{{title}}</h1>
     <b-search on-submit="spawnSearch"></b-search>
 </div>
 <div class="row">
@@ -11,9 +11,12 @@
                     <p>{{twit.text}}</p>
                     <p>Retweet count: {{twit.retweet_count}}</p>
                     <p>Favorite count: {{twit.favorite_count}}</p>
+                    <p>id: {{twit.id}}</p>
+                    <p>id_str: {{twit.id_str}}</p>
                 </div>
             </div>
         </div>
+        <b-pager ng-hide="hideNav" class="ng-hide" ng-model="currentPage" ng-change="pageChanged()"></b-pager>
     </div>
     <div class="col-md-4">
         <!--<h2>Search stack:</h2>

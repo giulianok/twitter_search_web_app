@@ -10,6 +10,7 @@ var mongo = require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/twittersearch", {native_parser:true});
 
 var searches = require('./routes/searches');
+var twitter = require('./routes/twitter');
 
 var T = new Twit({
     consumer_key: 'HsHtIE2NsH4ga4CPEQVp3wfxg',
@@ -24,16 +25,27 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
+// TODO find a better solution for these routes
+app.get('/stream', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/rest', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-// Make our db accessible to our router
+// Make our db and twit accessible to our router
 app.use(function(req,res,next){
     req.db = db;
+    req.twit = T;
     next();
 });
 
 app.use('/searches', searches);
+app.use('/twitter', twitter);
 
 // Sockets
 io.on('connection', function(socket) {

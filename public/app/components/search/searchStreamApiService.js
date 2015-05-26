@@ -1,6 +1,7 @@
-app.
-factory('SearchService', ['$http', '$log', '$q', function($http, $log, $q) {
+app
+.factory('SearchStreamApiService', ['$http', '$log', '$q', function($http, $log, $q) {
 
+        // TODO create a base service
         var getSearches = function () {
             var deferred = $q.defer();
             $http.get('/searches/list')
