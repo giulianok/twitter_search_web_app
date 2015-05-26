@@ -8,6 +8,7 @@ app
         $scope.spawnSearch = init;
         $scope.pageChanged = pageChanged;
         $scope.hideNav = true;
+        $scope.history = [];
 
 
         // **********************************************************
@@ -55,12 +56,22 @@ app
                 var params = getParamsToObject( $scope.searchMetadata.next_results );
                 SearchRestApiService.getTwitts( params ).then( renderTwitts );
 
+                $scope.history.push($scope.searchMetadata.max_id_str);
+
                 $scope.oldPage = $scope.currentPage;
             }
             else if($scope.currentPage < $scope.oldPage){
                 console.log('prev ' + $scope.currentPage);
-                var firstElement = $scope.twitts[0];
-                console.log(firstElement.id_str);
+
+                var params = {
+                    count: count,
+                    include_entities: "1",
+                    max_id: $scope.history.pop(),
+                    q: $scope.searchMetadata.query,
+                };
+
+                SearchRestApiService.getTwitts( params ).then( renderTwitts );
+
                 $scope.oldPage = $scope.currentPage;
             }
         }
