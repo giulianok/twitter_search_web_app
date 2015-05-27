@@ -16,8 +16,8 @@ Dokumentacija potrebnih API metoda se može pronaći na https://dev.twitter.com/
 Proces registracije aplikacije i dohvata tokena za API requestove obaviti na https://apps.twitter.com/.
 
 ## TODO
-- [ ] paginacija za više od 20 rezultata
+- [x] paginacija za više od 20 rezultata
 - [x] pamćenje prethodnih searcheva u sidebaru
 - [ ] ispis pogrešaka u popupu
-- [ ] highlight traženog keyworda u tekstu tweeta
+- [x] highlight traženog keyworda u tekstu tweeta
 - [ ] refactoring koda
