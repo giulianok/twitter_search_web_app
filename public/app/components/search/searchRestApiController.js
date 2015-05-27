@@ -8,6 +8,8 @@ app
         $scope.spawnSearch = init;
         $scope.pageChanged = pageChanged;
         $scope.hideNav = true;
+        $scope.lastPage = false;
+        $scope.showLoading = false;
         $scope.history = [];
         $scope.searchText = '';
 
@@ -20,12 +22,33 @@ app
          * @param q
          */
         function init(q) {
+            // show laoding
+            $scope.showLoading = true;
+
+            // hide nav
+            $scope.hideNav = true;
+
+            // empty twitts if any
+            if($scope.twitts && $scope.twitts.length > 0){
+                $scope.twitts = [];
+            }
+
+            // reset metadata
+            if(typeof $scope.searchMetadata != "undefined"){
+                $scope.searchMetadata = {};
+            }
+
+            // assign search text to scope
             $scope.searchText = q;
+
+            // create params
             var params = {
                 'q': q,
                 'count': count
             }
-            SearchRestApiService.getTwitts(params).then( firstPage, errorHandler );
+
+            // get twitts with params
+            SearchRestApiService.getTwitts( params ).then( firstPage, errorHandler );
         }
 
         /**
@@ -36,7 +59,7 @@ app
 
             renderTwitts(response);
 
-            //Check if there is more than one page
+            // check if there is more than one page
             if(hasOwnProperty($scope.searchMetadata, 'next_results')){
                 $scope.hideNav = false;
             }
@@ -49,13 +72,14 @@ app
         }
 
         /**
-         *
+         * Callback method for pager directive. This method is invoked when buttons 'Newer' or 'Older' are clicked.
          */
         function pageChanged(){
-            if($scope.currentPage > $scope.oldPage){
-                ngToast.create('next ' + $scope.currentPage);
 
-                var params = getParamsToObject( $scope.searchMetadata.next_results );
+            $scope.showLoading = true;
+
+            if($scope.currentPage > $scope.oldPage){
+                var params = urlParamsToObject( $scope.searchMetadata.next_results );
                 SearchRestApiService.getTwitts( params ).then( renderTwitts, errorHandler );
 
                 $scope.history.push($scope.searchMetadata.max_id_str);
@@ -63,8 +87,6 @@ app
                 $scope.oldPage = $scope.currentPage;
             }
             else if($scope.currentPage < $scope.oldPage){
-                ngToast.create('prev ' + $scope.currentPage);
-
                 var params = {
                     count: count,
                     include_entities: "1",
@@ -83,10 +105,21 @@ app
          * @param response
          */
         function renderTwitts(response){
+            // hide loader
+            $scope.showLoading = false;
+
             $scope.searchMetadata = response.search_metadata;
             $scope.twitts = response.statuses;
 
-            // TODO logic for the last page (disable Older Button)
+            // logic for the last page (disable Older Button)
+            if($scope.hideNav == false){
+                if(!hasOwnProperty($scope.searchMetadata, 'next_results')){
+                    $scope.lastPage = true;
+                }
+                else if($scope.lastPage){
+                    $scope.lastPage = false;
+                }
+            }
         }
 
         /**
@@ -94,6 +127,9 @@ app
          * @param err
          */
         function errorHandler(err){
+            // hide loader
+            $scope.showLoading = false;
+
             ngToast.create({
                 dismissButton: true,
                 className: 'danger',
@@ -118,18 +154,18 @@ app
          * @param getParams
          * @returns {*}
          */
-        function urlParamsToObject(getParams){
-            //remove '?' character from bigining of the string
-            if (getParams.substring(0, 1) == '?') {
-                getParams = getParams.substring(1);
+        function urlParamsToObject(urlParams){
+            // remove '?' character from bigining of the string
+            if (urlParams.substring(0, 1) == '?') {
+                urlParams = urlParams.substring(1);
             }
 
-            //replace the '&' with ',' and '=' with ':'
-            getParams = getParams.replace(/&/g, '","').replace(/=/g, '":"');
+            // replace the '&' with ',' and '=' with ':'
+            urlParams = urlParams.replace(/&/g, '","').replace(/=/g, '":"');
 
-            //assemble the JSON string and parse it to object
+            // assemble the JSON string and parse it to object
             return JSON.parse(
-                '{"' + getParams + '"}',
+                '{"' + urlParams + '"}',
                 function(key, value) {
                     return (key === "")? value : decodeURIComponent(value) ;
                 }

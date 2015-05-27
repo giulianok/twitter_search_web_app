@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <b-pager ng-hide="hideNav" class="ng-hide" ng-model="currentPage" ng-change="pageChanged()"></b-pager>
+        <b-pager hide="hideNav" ng-model="currentPage" ng-change="pageChanged()" loading="showLoading" last-page="lastPage"></b-pager>
     </div>
     <div class="col-md-4">
         <!--<h2>Search stack:</h2>

@@ -3,7 +3,11 @@ app
         return {
             restrict: 'E',
             require: 'ngModel',
-            scope: {},
+            scope: {
+                loading: '=',
+                hide: '=',
+                lastPage: '='
+            },
             templateUrl: 'app/shared/b-pager/b-pager.tpl.html',
             link: function(scope, elm, attrs, ngModel) {
                 ngModel.$viewChangeListeners.push(function() {
@@ -26,10 +30,10 @@ app
                 };
                 scope.noNext = function() {
                     // TODO find out how to indicate that there is no next page
-                    return false;
+                    return ( scope.hide || scope.loading || scope.lastPage )? true : false;
                 };
                 scope.noPrevious = function() {
-                    return ( scope.currentPage <= 1 ) ? true : false;
+                    return ( scope.hide || scope.loading || scope.currentPage <= 1 ) ? true : false;
                 };
             }
         }
