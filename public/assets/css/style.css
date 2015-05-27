@@ -291,7 +291,7 @@ th {
     border-top-color: #000 !important;
   }
 
-  .label {
+  .label, .highlighted {
     border: 1px solid #000;
   }
 
@@ -5190,7 +5190,7 @@ tbody.collapse.in {
   cursor: not-allowed;
 }
 
-.label {
+.label, .highlighted {
   display: inline;
   padding: .2em .6em .3em;
   font-size: 75%;
@@ -5202,15 +5202,15 @@ tbody.collapse.in {
   vertical-align: baseline;
   border-radius: .25em;
 }
-.label:empty {
+.label:empty, .highlighted:empty {
   display: none;
 }
-.btn .label {
+.btn .label, .btn .highlighted {
   position: relative;
   top: -1px;
 }
 
-a.label:hover, a.label:focus {
+a.label:hover, a.highlighted:hover, a.label:focus, a.highlighted:focus {
   color: #fff;
   text-decoration: none;
   cursor: pointer;
@@ -5223,10 +5223,10 @@ a.label:hover, a.label:focus {
   background-color: #978e83;
 }
 
-.label-primary {
+.label-primary, .highlighted {
   background-color: #DD4814;
 }
-.label-primary[href]:hover, .label-primary[href]:focus {
+.label-primary[href]:hover, [href].highlighted:hover, .label-primary[href]:focus, [href].highlighted:focus {
   background-color: #ae3910;
 }
 

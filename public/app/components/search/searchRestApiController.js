@@ -9,6 +9,7 @@ app
         $scope.pageChanged = pageChanged;
         $scope.hideNav = true;
         $scope.history = [];
+        $scope.searchText = '';
 
 
         // **********************************************************
@@ -19,6 +20,7 @@ app
          * @param q
          */
         function init(q) {
+            $scope.searchText = q;
             var params = {
                 'q': q,
                 'count': count
