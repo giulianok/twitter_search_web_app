@@ -18,6 +18,6 @@ Proces registracije aplikacije i dohvata tokena za API requestove obaviti na htt
 ## TODO
 - [x] paginacija za više od 20 rezultata
 - [x] pamćenje prethodnih searcheva u sidebaru
-- [ ] ispis pogrešaka u popupu
+- [x] ispis pogrešaka u popupu
 - [x] highlight traženog keyworda u tekstu tweeta
 - [ ] refactoring koda
