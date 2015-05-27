@@ -7,7 +7,16 @@ var io = require('socket.io')(server);
 var Twit = require('twit');
 var searches = {};
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/twittersearch", {native_parser:true});
+
+// OpenShift mongodb
+var db_url;
+if(typeof process.env === "undefined"){
+    db_url = "mongodb://localhost:27017/";
+}
+else{
+    db_url = process.env.OPENSHIFT_MONGODB_DB_URL;
+}
+var db = mongo.db( db_url + "twittersearch", {native_parser:true});
 
 var searches = require('./routes/searches');
 var twitter = require('./routes/twitter');
@@ -107,4 +116,3 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 server.listen(port, ip);
-console.log('Server listening on port 3000');
