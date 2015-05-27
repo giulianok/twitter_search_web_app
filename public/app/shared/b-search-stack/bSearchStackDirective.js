@@ -1,44 +1,44 @@
-app
-.directive('bSearchStack', ['$timeout', function ($timeout) {
+app.directive('bSearchStack', ['PreviousSearchesService', 'ngToast', 'socket', '$timeout', function ( PreviousSearchesService, ngToast, socket, $timeout ) {
     return {
         restrict: 'AE',
         scope: {
-            collection: '='
+            title: '@'
         },
         replace: true,
-        templateUrl: 'app/shared/b-search-stack/bSearchStackView.html',
+        templateUrl: 'app/shared/b-search-stack/b-search-stack.tpl.html',
         link: function(scope, elm, attrs) {
-            scope.currentPage = 1;//current page
-            scope.maxSize = 5;//pagination max size
-            scope.entryLimit = 5;//max rows for data table
-            scope.noOfPages = 0;
 
-            scope.$watch('collection', function(newval, oldval){
-                if(newval){
-                    scope.noOfPages = Math.ceil(scope.collection.length / scope.entryLimit);
-                }
-            });
+            scope.loading = true;
 
-            scope.setPage = function (pageNo) {
-                scope.currentPage = pageNo;
-            };
+            var onLoad = function(collection){
+                scope.loading = false;
+                scope.collection = collection;
+            }
 
+            var onError = function(err){
+                ngToast.create({
+                    dismissButton: true,
+                    className: 'danger',
+                    content: '<strong>Error: </strong>' + err
+                });
+            }
 
-            scope.$watch('search', function(term) {
-                scope.filter = function() {
-                    scope.noOfPages = Math.ceil(scope.filtered.length/scope.entryLimit);
-                }
-            });
+            PreviousSearchesService.getSearches({ count: 10 }).then( onLoad, onError );
+
+            // default title
+            if(typeof scope.title == "undefined"){
+                scope.title = "Search Stack:";
+            }
+
+            // listen for the keyword update on socket
+            socket.on('search_key_update', function(data) {
+                scope.collection.pop(); // pop the last one
+                data.io = 'warning'; // class for highlight of a new one
+                scope.collection.unshift(data); // push (unshift) to top
+                $timeout(function(){ // after few seconds remove highlight class
+                    data.io = 'default';
+                }, 5000, true, data.io);
+            })
         }
     }
 }]);
-
-app.filter('startFrom', function() {
-    return function(input, start) {
-        if(input) {
-            start = +start; //parse to int
-            return input.slice(start);
-        }
-        return [];
-    }
-});

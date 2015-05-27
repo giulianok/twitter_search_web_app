@@ -1,5 +1,5 @@
 app
-    .controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'ngToast',  function ($scope, SearchRestApiService, ngToast) {
+    .controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'ngToast', 'PreviousSearchesService',  function ($scope, SearchRestApiService, ngToast, PreviousSearchesService) {
 
         var count = 20; //max twitts per page
 
@@ -49,6 +49,18 @@ app
 
             // get twitts with params
             SearchRestApiService.getTwitts( params ).then( firstPage, errorHandler );
+
+            // save search query
+            PreviousSearchesService.saveSearchQuery({ query: q }).then(
+                null,
+                function(msg){
+                    ngToast.create({
+                        dismissButton: true,
+                        className: 'danger',
+                        content: '<strong>Error: </strong>' + msg
+                    });
+                }
+            );
         }
 
         /**

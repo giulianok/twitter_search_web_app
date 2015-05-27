@@ -37,10 +37,11 @@ app.get('/rest', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-// Make our db and twit accessible to our router
+// Make our db and twit and io accessible to our router
 app.use(function(req,res,next){
     req.db = db;
     req.twit = T;
+    req.io = io;
     next();
 });
 

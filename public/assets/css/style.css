@@ -7150,12 +7150,13 @@ button.close {
 .b-pager {
   position: relative;
 }
-.b-pager .loader {
+
+.loader {
   position: absolute;
   top: 10px;
   margin-left: 50%;
 }
-.b-pager .loader.spin {
+.loader.spin {
   -webkit-animation: spin 2s linear infinite;
           animation: spin 2s linear infinite;
 }
@@ -7181,8 +7182,43 @@ button.close {
             transform: rotate(360deg);
   }
 }
+.b-search-stack .content {
+  position: relative;
+}
+
 .nav, .pagination, .carousel, .panel-title a {
   cursor: pointer;
+}
+
+.animate-repeat {
+  box-sizing: border-box;
+  -webkit-transition: all 800ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+          transition: all 800ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+}
+.animate-repeat > td {
+  -webkit-transition: all 800ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+          transition: all 800ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+}
+.animate-repeat.default > td {
+  background-color: white;
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+  position: relative;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+  opacity: 0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=style.css.map */
