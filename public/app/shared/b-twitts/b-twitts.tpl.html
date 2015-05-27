@@ -1,0 +1,10 @@
+<div ng-repeat="twit in collection track by $index">
+    <div class="thumbnail">
+        <div class="caption">
+            <h3>{{twit.user.name}}t</h3>
+            <p ng-bind-html="twit.text | highlight:searchText"></p>
+            <p>Retweet count: {{twit.retweet_count}}</p>
+            <p>Favorite count: {{twit.favorite_count}}</p>
+        </div>
+    </div>
+</div>
