@@ -1,5 +1,5 @@
 app
-    .controller('SearchRestApiController', [ '$scope', 'SearchRestApiService',  function ($scope, SearchRestApiService) {
+    .controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'ngToast',  function ($scope, SearchRestApiService, ngToast) {
 
         var count = 20; //max twitts per page
 
@@ -25,7 +25,7 @@ app
                 'q': q,
                 'count': count
             }
-            SearchRestApiService.getTwitts(params).then( firstPage );
+            SearchRestApiService.getTwitts(params).then( firstPage, errorHandler );
         }
 
         /**
@@ -53,17 +53,17 @@ app
          */
         function pageChanged(){
             if($scope.currentPage > $scope.oldPage){
-                console.log( 'next ' + $scope.currentPage );
+                ngToast.create('next ' + $scope.currentPage);
 
                 var params = getParamsToObject( $scope.searchMetadata.next_results );
-                SearchRestApiService.getTwitts( params ).then( renderTwitts );
+                SearchRestApiService.getTwitts( params ).then( renderTwitts, errorHandler );
 
                 $scope.history.push($scope.searchMetadata.max_id_str);
 
                 $scope.oldPage = $scope.currentPage;
             }
             else if($scope.currentPage < $scope.oldPage){
-                console.log('prev ' + $scope.currentPage);
+                ngToast.create('prev ' + $scope.currentPage);
 
                 var params = {
                     count: count,
@@ -72,7 +72,7 @@ app
                     q: $scope.searchMetadata.query,
                 };
 
-                SearchRestApiService.getTwitts( params ).then( renderTwitts );
+                SearchRestApiService.getTwitts( params ).then( renderTwitts, errorHandler );
 
                 $scope.oldPage = $scope.currentPage;
             }
@@ -87,6 +87,18 @@ app
             $scope.twitts = response.statuses;
 
             // TODO logic for the last page (disable Older Button)
+        }
+
+        /**
+         * Toast the error message.
+         * @param err
+         */
+        function errorHandler(err){
+            ngToast.create({
+                dismissButton: true,
+                className: 'danger',
+                content: '<strong>Error: </strong>' + err.message + ' <strong>Code: </strong>' + err.code
+            });
         }
 
         /**
@@ -106,7 +118,7 @@ app
          * @param getParams
          * @returns {*}
          */
-        function getParamsToObject(getParams){
+        function urlParamsToObject(getParams){
             //remove '?' character from bigining of the string
             if (getParams.substring(0, 1) == '?') {
                 getParams = getParams.substring(1);

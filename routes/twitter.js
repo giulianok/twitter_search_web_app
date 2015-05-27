@@ -2,15 +2,20 @@ var express = require('express');
 var router = express.Router();
 
 /*
- * GET searcheslist.
+ * GET twitts for given query.
  */
 router.post('/search', function(req, res) {
     var T = req.twit;
+    var params = req.body;
     T.get('search/tweets',
-        req.body,
+        params,
         function(err, data, response) {
-            //TODO Error Check
-            res.json(data);
+            if(err === null){
+                res.json(data);
+            }
+            else{
+                res.status(err.statusCode).send(err);
+            }
         });
 });
 
