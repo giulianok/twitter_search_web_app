@@ -11,7 +11,7 @@ app.factory('PreviousSearchesService', ['$http', '$log', '$q', function($http, $
             .success(function(data) {
                 deferred.resolve(data);
             }).error(function(msg, code) {
-                deferred.reject(err);
+                deferred.reject(msg);
                 $log.error(msg, code);
             });
         return deferred.promise;
