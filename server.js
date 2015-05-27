@@ -7,16 +7,7 @@ var io = require('socket.io')(server);
 var Twit = require('twit');
 var searches = {};
 var mongo = require('mongoskin');
-
-// OpenShift mongodb
-var db_url;
-if(typeof process.env === "undefined"){
-    db_url = "mongodb://localhost:27017/";
-}
-else{
-    db_url = process.env.OPENSHIFT_MONGODB_DB_URL;
-}
-var db = mongo.db( db_url + "twittersearch", {native_parser:true});
+var db = require('./config').db;
 
 var searches = require('./routes/searches');
 var twitter = require('./routes/twitter');
