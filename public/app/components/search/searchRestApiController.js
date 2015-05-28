@@ -103,7 +103,7 @@ app
                     count: count,
                     include_entities: "1",
                     max_id: $scope.history.pop(),
-                    q: $scope.searchMetadata.query,
+                    q: $scope.searchText,
                 };
 
                 SearchRestApiService.getTwitts( params ).then( renderTwitts, errorHandler );
