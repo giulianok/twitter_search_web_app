@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var T = require('../../config/twit').T;
 
 /*
  * GET twitts for given query.
  */
 router.post('/search', function(req, res) {
-    var T = req.twit;
+
     var params = req.body;
     T.get('search/tweets',
         params,

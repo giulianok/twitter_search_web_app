@@ -4,51 +4,31 @@ var server = require('http').Server(app);
 var path = require('path');
 var bodyParser = require('body-parser');
 var io = require('socket.io')(server);
-var Twit = require('twit');
-var searches = {};
-var mongo = require('mongoskin');
-var db = require('./config').db;
 
-var searches = require('./routes/searches');
-var twitter = require('./routes/twitter');
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
-var T = new Twit({
-    consumer_key: 'HsHtIE2NsH4ga4CPEQVp3wfxg',
-    consumer_secret: 'qZnEyf2EykW3bs8D3nXgomdM0I4P45Criz5jY0qjarWnaSEZAz',
-    access_token: '777919578-xMlu4yNNuRZXqDJCQEOT0PJuancNKrEOx83GQwQD',
-    access_token_secret: '5PTPJAuIH8vuR44i4TSopAqq4rQzg7u8Ycguvcy6T1RpZ'
-});
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
-
-// TODO find a better solution for these routes
-app.get('/stream', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-});
-
-app.get('/rest', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-});
-
+// configuration ===============================================================
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-// Make our db and twit and io accessible to our router
+// Make our io accessible to our router
 app.use(function(req,res,next){
-    req.db = db;
-    req.twit = T;
     req.io = io;
     next();
 });
 
-app.use('/searches', searches);
-app.use('/twitter', twitter);
 
-// Sockets
+// routes ======================================================================
+require('./app/routes')(app, path);
+
+
+// sockets =====================================================================
+var searches = {};
+var T = require('./config/twit').T;
+
 io.on('connection', function(socket) {
     searches[socket.id] = {};
     socket.on('q', function(q) {
@@ -61,7 +41,7 @@ io.on('connection', function(socket) {
             });
 
             stream.on('tweet', function(tweet) {
-                //console.log(q, tweet.id);
+                console.log(q, tweet.id);
                 socket.emit('tweet_' + q, tweet);
             });
 
@@ -102,8 +82,5 @@ io.on('connection', function(socket) {
     });
 
 });
-
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 server.listen(port, ip);

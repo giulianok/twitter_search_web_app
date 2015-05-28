@@ -1,5 +1,4 @@
-app
-    .controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'ngToast', 'PreviousSearchesService',  function ($scope, SearchRestApiService, ngToast, PreviousSearchesService) {
+app.controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'ngToast', 'PreviousSearchesService',  function ($scope, SearchRestApiService, ngToast, PreviousSearchesService) {
 
         var count = 20; //max twitts per page
 

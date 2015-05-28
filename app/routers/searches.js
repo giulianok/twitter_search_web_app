@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../../config/database').db;
 
 /*
  * GET searcheslist.
  */
 router.post('/list', function(req, res) {
-    var db = req.db;
 
     var limit = (typeof req.body.count === "undefined")? 5 : req.body.count;
 
@@ -30,7 +30,7 @@ router.post('/list', function(req, res) {
  * POST to addsearch.
  */
 router.post('/add', function(req, res) {
-    var db = req.db;
+
     var data = req.body;
     data.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     data.date = new Date();
