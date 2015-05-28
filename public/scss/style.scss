@@ -1,5 +1,6 @@
 // Core variables and mixins
-@import "variables";
+//@import "variables";
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
 @import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins";
 
 // Reset and dependencies
@@ -49,11 +50,13 @@
 @import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/utilities";
 @import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/responsive-utilities";
 
-@import 'bootswatch';
+//@import 'bootswatch';
+@import 'global';
 @import 'browserupgrade';
 @import 'mixins';
 @import 'card';
 @import 'typography';
+@import 'b-header';
 @import 'b-pager';
 @import 'b-spinner';
 @import 'b-search-stack';

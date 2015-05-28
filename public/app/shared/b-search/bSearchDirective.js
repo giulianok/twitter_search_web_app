@@ -6,7 +6,7 @@ app
             onSubmit: '&'
         },
         replace: true,
-        templateUrl: 'app/shared/b-search/bSearchView.html',
+        templateUrl: 'app/shared/b-search/b-search.tpl.html',
         link: function(scope, elm, attrs) {
             scope.submit = function(searchString) {
                 scope.onSubmit()(searchString);
