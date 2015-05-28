@@ -32,7 +32,8 @@ app.directive('bSearchStack', ['PreviousSearchesService', 'ngToast', 'socket', '
 
             // listen for the keyword update on socket
             socket.on('search_key_update', function(data) {
-                scope.collection.pop(); // pop the last one
+                if(scope.collection.length >= 10)// if the length of collection is smaller then count do not pop out last one from collection :D
+                    scope.collection.pop(); // pop the last one
                 data.io = 'warning'; // class for highlight of a new one
                 scope.collection.unshift(data); // push (unshift) to top
                 $timeout(function(){ // after few seconds remove highlight class
