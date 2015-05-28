@@ -17,7 +17,7 @@ app.controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'n
         // Private Methods
         // **********************************************************
         /**
-         *
+         * Init method, bootstrap the scope
          * @param q
          */
         function init(q) {
@@ -63,7 +63,7 @@ app.controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'n
         }
 
         /**
-         *
+         * When new search is performed this method is called to reset all data
          * @param response
          */
         function firstPage(response){
@@ -112,8 +112,8 @@ app.controller('SearchRestApiController', [ '$scope', 'SearchRestApiService', 'n
         }
 
         /**
-         *
-         * @param response
+         * Assign new collection of twitts to scope
+         * @param response - twitts collection
          */
         function renderTwitts(response){
             // hide loader

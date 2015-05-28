@@ -15,7 +15,7 @@ app.controller('SearchStreamApiController', [ '$scope', 'socket', 'ngToast', 'Pr
     // **********************************************************
 
     /**
-     *
+     * Init method, bootstrap the scope and starts the socket connection
      * @param q
      */
     function spawnSearch(q) {
