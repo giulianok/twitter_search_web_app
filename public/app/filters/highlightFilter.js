@@ -1,10 +1,8 @@
 app.filter('highlight', function($sce) {
         return function(text, phrase) {
             if (phrase) {
-                var phrases = phrase.trim().replace(/\s\s+/g, ' ').split(" ");
-                for (var i = 0; i < phrases.length; i++) {
-                    text = text.replace(new RegExp('(' + phrases[i] + ')', 'gi'), '<span class="highlighted">$1</span>');
-                }
+                phrase = phrase.trim().replace(/\s+/g, '|');
+                text = text.replace(new RegExp('(^|\\W)('+ phrase +')(?=\\W|$)', 'gi'), '$1<span class="highlighted">$2</span>');
             }
 
             return $sce.trustAsHtml(text)
